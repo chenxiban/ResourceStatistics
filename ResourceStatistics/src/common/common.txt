@@ -1,0 +1,41 @@
+使用JFinal实现持久层操作的步骤(三步):
+***1>导入jar包   mysql-connector-java-5.1.20-bin.jar和druid-1.0.29.jar
+***2>在JFinal配置类的插件配置方法中配置数据库连接池插件
+***3>声明JFinal实体模型,并在业务中使用
+
+开发中需要关注SQL语句执行的细节,发布的项目必须记录运行日志：故加入log4j日志记录，在控制台显示SQL语句，并记录项目运行的日志文件
+加入log4j步骤:
+1>导入jar包 log4j-1.2.16.jar
+2>classpath下加入: log4j.properties
+3>配置类中设置 activeRecord.setShowSql(true);
+4>业务处理过程中使用Logger记录日志。
+
+数据库操作离不开事务:JFinal框架下开启持久层业务的事务,非常简单只需要在配置类中配置如下一句事务拦截器即可:
+me.add(new Tx());//ActiveRecord 插件中使用拦截器事务,即声明式事务
+如果框架下只有极少几个几个业务需要开启事务则也可选择JFinal特有的 Db+Record 模式下的事务:
+匿名内部类模式事务
+Db.tx(new IAtom(){
+public boolean run() throws SQLException {需要开启事务的业务块.如果此处return false;则该业务块回滚}
+});
+
+
+
+其它说明项:
+本项目中Jar包解释
+c3p0-0.9.1.2.jar 数据库连接池c3p0
+commons-io-2.4.jar 拷贝文件的工具类
+cos-26Dec2008.jar JFinal文件上传依赖jar
+
+jfinal-2.2-bin-with-src.jar  JFinal框架发布包和框架学习源码
+junit-4.8.1.jar 本地单元测试
+mysql-connector-java-5.1.18.jar 数据库驱动包
+
+注意！注意！注意！重要的事情说三遍。注意下面四个jar包有什么用
+druid-1.0.26.jar 阿里的数据库连接池
+
+
+//String path = new File("").getAbsolutePath().replaceAll("\\\\", "/"); // 获得Tomcat的默认路径 
+			//System.out.println("Tomcat的默认路径 =====>"+path);
+			//mypath = path.substring(0,path.lastIndexOf("/"))+"/ResourceStatistics/excel/-"+count+"条.xlsx";
+												// //截取字符串
+												Workbook workBook = new SXSSFWorkbook(100); // 只在内存中保留100行记录

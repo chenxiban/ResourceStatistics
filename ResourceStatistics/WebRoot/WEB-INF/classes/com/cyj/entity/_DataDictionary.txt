@@ -1,0 +1,90 @@
+Table: computers
+------------------+------------------+------+-----+---------+---------
+ Field            | Type             | Null | Key | Default | Remarks 
+------------------+------------------+------+-----+---------+---------
+ computers_id     | INT UNSIGNED(10) | NO   | PRI |         | 编号      
+ computers_name   | VARCHAR(50)      | YES  |     |         | 电脑名称    
+ computers_ip     | VARCHAR(50)      | YES  |     |         | 电脑IP    
+ readRoomId       | INT UNSIGNED(10) | NO   |     |         | 阅览室id   
+ computers_remark | VARCHAR(2000)    | YES  |     |         | 备注      
+------------------+------------------+------+-----+---------+---------
+
+Table: consumelogs
+---------------------+------------------+------+-----+---------+---------
+ Field               | Type             | Null | Key | Default | Remarks 
+---------------------+------------------+------+-----+---------+---------
+ consumelogs_id      | INT UNSIGNED(10) | NO   | PRI |         | 编号      
+ consumelogs_cardNo  | VARCHAR(20)      | YES  |     |         | 卡号      
+ readRoomId          | INT(10)          | YES  |     |         | 资源编号    
+ consumelogs_inTime  | DATETIME(19)     | YES  |     |         | 进入时间    
+ consumelogs_outTime | DATETIME(19)     | YES  |     |         | 离开时间    
+ consumelogs_status  | INT(10)          | YES  |     |         | 用于统计而不用于判定:0:不在 1:表示在
+---------------------+------------------+------+-----+---------+---------
+
+Table: memberships
+------------------------+------------------+------+-----+---------+---------
+ Field                  | Type             | Null | Key | Default | Remarks 
+------------------------+------------------+------+-----+---------+---------
+ memberships_id         | INT UNSIGNED(10) | NO   | PRI |         | 系id     
+ memberships_department | VARCHAR(50)      | YES  |     |         | 系       
+ memberships_specialty  | VARCHAR(50)      | YES  |     |         | 专业      
+ memberships_degree     | VARCHAR(20)      | YES  |     |         | 学历      
+------------------------+------------------+------+-----+---------+---------
+
+Table: readrooms
+------------------+------------------+------+-----+---------+---------
+ Field            | Type             | Null | Key | Default | Remarks 
+------------------+------------------+------+-----+---------+---------
+ readrooms_id     | INT UNSIGNED(10) | NO   | PRI |         | 资源编号    
+ readrooms_name   | VARCHAR(50)      | YES  |     |         | 阅览室名称   
+ readrooms_remark | VARCHAR(2000)    | YES  |     |         | 备注      
+------------------+------------------+------+-----+---------+---------
+
+Table: sections
+-----------------+------------------+------+-----+---------+---------
+ Field           | Type             | Null | Key | Default | Remarks 
+-----------------+------------------+------+-----+---------+---------
+ sections_id     | INT UNSIGNED(10) | NO   | PRI |         | 编号id    
+ sections_name   | VARCHAR(50)      | NO   |     |         | 科室名称    
+ sections_remark | VARCHAR(2000)    | YES  |     |         | 备注      
+-----------------+------------------+------+-----+---------+---------
+
+Table: statistics
+-----------------------+------------------+------+-----+---------+---------
+ Field                 | Type             | Null | Key | Default | Remarks 
+-----------------------+------------------+------+-----+---------+---------
+ statistics_id         | INT UNSIGNED(10) | NO   | PRI |         | 编号      
+ readRoomId            | INT UNSIGNED(10) | NO   |     |         | 资源id    
+ statistics_peopleNums | INT(10)          | YES  |     | 0       | 使用人次    
+ statistics_year       | VARCHAR(20)      | YES  |     |         | 年       
+ statistics_month      | VARCHAR(20)      | YES  |     |         | 月       
+ statistics_day        | VARCHAR(20)      | YES  |     |         | 日       
+-----------------------+------------------+------+-----+---------+---------
+
+Table: students
+-----------------+------------------+------+-----+---------+---------
+ Field           | Type             | Null | Key | Default | Remarks 
+-----------------+------------------+------+-----+---------+---------
+ students_id     | INT UNSIGNED(10) | NO   | PRI |         | 学生编号    
+ students_cardNo | VARCHAR(20)      | NO   |     |         | 卡号      
+ students_name   | VARCHAR(20)      | NO   |     |         | 名字      
+ students_sex    | ENUM(2)          | NO   |     | 男       | 性别      
+ membershipId    | INT UNSIGNED(10) | NO   |     |         | 身份编号    
+ students_status | INT(10)          | YES  |     | 0       | 0正常状态   当前阅览室ID
+ students_remark | VARCHAR(2000)    | YES  |     |         | 备注      
+ students_stuNo  | VARCHAR(20)      | YES  |     |         | 学号      
+-----------------+------------------+------+-----+---------+---------
+
+Table: teachers
+-----------------+------------------+------+-----+---------+---------
+ Field           | Type             | Null | Key | Default | Remarks 
+-----------------+------------------+------+-----+---------+---------
+ teachers_id     | INT UNSIGNED(10) | NO   | PRI |         | 老师编号    
+ teachers_cardNo | VARCHAR(20)      | NO   |     |         | 卡号      
+ teachers_name   | VARCHAR(20)      | NO   |     |         | 姓名      
+ teachers_sex    | ENUM(2)          | NO   |     | 男       | 性别      
+ sectionID       | INT UNSIGNED(10) | NO   |     |         | 科室编号外键  
+ teachers_status | INT(10)          | NO   |     | 0       | 正常>0 所在阅览室Id
+ teachers_remark | VARCHAR(2000)    | YES  |     |         | 备注      
+-----------------+------------------+------+-----+---------+---------
+
